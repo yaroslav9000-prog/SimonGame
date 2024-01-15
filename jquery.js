@@ -56,8 +56,10 @@ const game = ()=>{
     for(let index = 0; index < pcClicks.length; index++){
         if(pcClicks[index] != playerClicks[index]){
             console.log('idi damoi');
+            pcClicks = [];
         }else{
             score++;
+            console.log(`your score is ${score}`)
         }
     }
     playerClicks = [];
