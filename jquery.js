@@ -51,7 +51,6 @@ const game = ()=>{
 
     // this section should be in while loop
 
-    pcMove();
     console.log(playerClicks);
     for(let index = 0; index < pcClicks.length; index++){
         if(pcClicks[index] != playerClicks[index]){
@@ -62,8 +61,9 @@ const game = ()=>{
             console.log(`your score is ${score}`)
         }
     }
+    pcMove();
     playerClicks = [];
-    
+
     
 
 }
