@@ -1,5 +1,19 @@
+@font-face {
+    font-family: lobster;
+    src: url(./fonts/Lobster-Regular.ttf);
+}
 *{
     text-align: center;
+    font-family: lobster;
+}
+body{
+    background-color: rgb(69, 71, 96);
+}
+h2{
+    position: absolute;
+    color: aliceblue;
+    left: 95px;
+    top: 30px;
 }
 #game{
     display: grid;
@@ -58,7 +72,8 @@
     width: 250px;
     margin-left: 95px;
     margin-top: 95px;
-    z-index: 1;   
+    z-index: 1;  
+    color: aliceblue;
 }
 .button:hover{
     

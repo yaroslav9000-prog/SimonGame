@@ -31,10 +31,19 @@ const buttons = [
     botRight   
 ];
 const buttonsToClick = [];
-const playerClicks = [];
+let clicksToGuess = [...buttonsToClick];
 const updateClickedList = ()=>{
-    buttonsToClick.push(buttons[randomNumber()]);
-    console.log(buttonsToClick);   
+    return new Promise((resolve, reject)=>{
+
+        setTimeout(()=>{
+            buttonsToClick.push(buttons[randomNumber()]);
+            clicksToGuess = [...buttonsToClick];
+            
+            resolve()}
+            , 400
+            )
+    
+})   
 }
 const makeItFlash = (buttonToFlash) =>{
     return new Promise((resolve, reject)=>{
@@ -44,30 +53,43 @@ const makeItFlash = (buttonToFlash) =>{
         buttonToFlash.classList.add("flash");
         setTimeout(()=>{
             buttonToFlash.classList.remove("flash");
-        }, 250)
+        }, 300)
         resolve();
-    }, 300)
+    }, 400)
     
 })
 }
+let canClick = false;
 const actionButton = (someButton) =>{
+    //I also can limit the player clicking until the panels finished playing
+    if(!canClick) return;
     makeItFlash(someButton);
-    playerClicks.push(someButton);    
+    const firstOnList = clicksToGuess.shift();
+    if(someButton !== firstOnList){
+        console.log("You missed the button");
+        return;
+    }else{
+        console.log("Good job");
+        console.log(clicksToGuess);
+    }
+    if(clicksToGuess.length == 0){
+        theGame();
+    }
+    
+    //Everytime player clicks the button its going to be compared with the first one of pc clicked.
+    //shift method removes first element from the list and keeps 
 }
 const theGame = async ()=>{
-    updateClickedList();
-    updateClickedList();
-    updateClickedList();
-    updateClickedList();
-    updateClickedList();
-    
+    // cloning of list is good in case of this game because the original list is kept saved and 
+    // cloned one is one that gets changed     
+    await updateClickedList()
     for(let index = 0; index < buttonsToClick.length; index++){
-        console.log(buttonsToClick);
-        await makeItFlash(buttons[index]);
+        await makeItFlash(buttonsToClick[index]);
     }
-    //should have function that lets user click and theGame function should wait for it to end.
+    canClick = true;        
     
 
 }
-
-theGame();
+window.addEventListener("keydown", ()=>{
+    theGame();
+})
